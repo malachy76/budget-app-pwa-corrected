@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Budget App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f4a73;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: white;
+      color: #0f4a73;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 Budget App</h1>
+    <p>You’re offline right now. Please reconnect to access your finances.</p>
+    <button onclick="location.reload()">Retry</button>
+  </div>
+</body>
+</html>

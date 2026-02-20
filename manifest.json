@@ -2,13 +2,13 @@
   "name": "Simple Budget App",
   "short_name": "BudgetApp",
   "description": "Track expenses, income, and savings goals",
+  "id": "budget-app",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f4a73",
   "orientation": "portrait",
-  "id": "budget-app",
   "prefer_related_applications": false,
   "icons": [
     {

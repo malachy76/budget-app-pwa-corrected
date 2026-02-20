@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app",
+      "permanent": false
+    }
+  ]
+}

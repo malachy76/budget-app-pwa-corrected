@@ -1,163 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>💰 Budget App</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f4a73">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            background: #ffffff;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f4a73;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            z-index: 1000;
-            transition: opacity 0.5s;
-        }
-        .splash-content {
-            text-align: center;
-        }
-        .splash-content h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .splash-content p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        #error-message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #f8d7da;
-            color: #721c24;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            z-index: 2000;
-        }
-        #error-message button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background: #0f4a73;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport" 
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>💰 Budget App</title>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f4a73">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f4a73;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+      transition: opacity 0.5s;
+    }
+    .splash-content {
+      text-align: center;
+    }
+    .splash-content h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .splash-content p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    #error-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f8d7da;
+      color: #721c24;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      z-index: 2000;
+    }
+    #error-message button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #0f4a73;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div id="splash-screen">
-        <div class="splash-content">
-            <h1>💰 Budget App</h1>
-            <p>Loading your finances...</p>
-        </div>
+  <div id="splash-screen">
+    <div class="splash-content">
+      <h1>💰 Budget App</h1>
+      <p>Loading your finances...</p>
     </div>
-    <div id="error-message">
-        <div>
-            <h2>⚠️ Failed to load the app</h2>
-            <p>The budget app is temporarily unavailable. This might be due to authentication or embedding restrictions.</p>
-            <p>Try opening the app directly: <a href="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" target="_blank">Open in new tab</a></p>
-            <button onclick="retryLoad()">Retry</button>
-        </div>
+  </div>
+
+  <div id="error-message">
+    <div>
+      <h2>⚠️ Failed to load the app</h2>
+      <p>The budget app is temporarily unavailable. This might be due to authentication or embedding restrictions.</p>
+      <p>Try opening the app directly: 
+        <a href="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" target="_blank">Open in new tab</a>
+      </p>
+      <button onclick="retryLoad()">Retry</button>
     </div>
-    <iframe 
-        id="app-frame"
-        src="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" 
-        title="Budget App"
-        allow="camera; microphone; payment; autoplay; clipboard-write; credentials"
-        loading="lazy">
-    </iframe>
+  </div>
 
-    <script>
-        const iframe = document.getElementById('app-frame');
-        const splash = document.getElementById('splash-screen');
-        const errorDiv = document.getElementById('error-message');
-        let loadError = false;
+  <iframe 
+    id="app-frame"
+    src="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" 
+    title="Budget App"
+    allow="camera; microphone; payment; autoplay; clipboard-write; credentials"
+    loading="lazy">
+  </iframe>
 
-        // Hide splash when iframe loads
-        iframe.addEventListener('load', function() {
-            // A load event might fire even if there's a redirect loop – we need to be cautious.
-            // We'll hide splash after a short delay, but if the page is still looping, the iframe content may not be usable.
-            setTimeout(() => {
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 500);
-            }, 1000);
-        });
+  <script>
+    const iframe = document.getElementById('app-frame');
+    const splash = document.getElementById('splash-screen');
+    const errorDiv = document.getElementById('error-message');
+    let loadError = false;
 
-        // If iframe fails to load (network error, blocked by browser)
-        iframe.addEventListener('error', function() {
-            splash.style.display = 'none';
-            errorDiv.style.display = 'flex';
-            loadError = true;
-        });
-
-        // Fallback: if splash is still visible after 10 seconds, assume loading failed
+    iframe.addEventListener('load', function() {
+      setTimeout(() => {
+        splash.style.opacity = '0';
         setTimeout(() => {
-            if (splash.style.display !== 'none' && !loadError) {
-                splash.style.display = 'none';
-                errorDiv.style.display = 'flex';
-            }
-        }, 10000);
+          splash.style.display = 'none';
+        }, 500);
+      }, 1000);
+    });
 
-        function retryLoad() {
-            errorDiv.style.display = 'none';
-            splash.style.display = 'flex';
-            splash.style.opacity = '1';
-            // Reload the iframe by resetting its src
-            const currentSrc = iframe.src;
-            iframe.src = '';
-            iframe.src = currentSrc;
-        }
+    iframe.addEventListener('error', function() {
+      splash.style.display = 'none';
+      errorDiv.style.display = 'flex';
+      loadError = true;
+    });
 
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker error:', err));
-            });
-        }
+    setTimeout(() => {
+      if (splash.style.display !== 'none' && !loadError) {
+        splash.style.display = 'none';
+        errorDiv.style.display = 'flex';
+      }
+    }, 10000);
 
-        // Optional: handle install prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-    </script>
+    function retryLoad() {
+      errorDiv.style.display = 'none';
+      splash.style.display = 'flex';
+      splash.style.opacity = '1';
+      const currentSrc = iframe.src;
+      iframe.src = '';
+      iframe.src = currentSrc;
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('Service Worker registered with scope:', reg.scope))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      });
+    }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+  </script>
 </body>
 </html>

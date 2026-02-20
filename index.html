@@ -65,6 +65,16 @@
             font-family: Arial, sans-serif;
             z-index: 2000;
         }
+        #error-message button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: #0f4a73;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -77,15 +87,16 @@
     <div id="error-message">
         <div>
             <h2>⚠️ Failed to load the app</h2>
-            <p>The budget app is temporarily unavailable. Please try again later.</p>
-            <button onclick="location.reload()">Retry</button>
+            <p>The budget app is temporarily unavailable. This might be due to authentication or embedding restrictions.</p>
+            <p>Try opening the app directly: <a href="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" target="_blank">Open in new tab</a></p>
+            <button onclick="retryLoad()">Retry</button>
         </div>
     </div>
     <iframe 
         id="app-frame"
         src="https://budget-app-8krtfsjx7ggvhf5qpdoxnv.streamlit.app/" 
         title="Budget App"
-        allow="camera; microphone; payment; autoplay"
+        allow="camera; microphone; payment; autoplay; clipboard-write; credentials"
         loading="lazy">
     </iframe>
 
@@ -93,9 +104,12 @@
         const iframe = document.getElementById('app-frame');
         const splash = document.getElementById('splash-screen');
         const errorDiv = document.getElementById('error-message');
+        let loadError = false;
 
         // Hide splash when iframe loads
         iframe.addEventListener('load', function() {
+            // A load event might fire even if there's a redirect loop – we need to be cautious.
+            // We'll hide splash after a short delay, but if the page is still looping, the iframe content may not be usable.
             setTimeout(() => {
                 splash.style.opacity = '0';
                 setTimeout(() => {
@@ -104,20 +118,30 @@
             }, 1000);
         });
 
-        // Show error if iframe fails to load (e.g., redirect loop, network error)
+        // If iframe fails to load (network error, blocked by browser)
         iframe.addEventListener('error', function() {
             splash.style.display = 'none';
             errorDiv.style.display = 'flex';
+            loadError = true;
         });
 
-        // Also set a timeout in case load never fires (due to loop)
+        // Fallback: if splash is still visible after 10 seconds, assume loading failed
         setTimeout(() => {
-            if (splash.style.display !== 'none') {
-                // If splash still visible after 10 seconds, assume iframe failed
+            if (splash.style.display !== 'none' && !loadError) {
                 splash.style.display = 'none';
                 errorDiv.style.display = 'flex';
             }
         }, 10000);
+
+        function retryLoad() {
+            errorDiv.style.display = 'none';
+            splash.style.display = 'flex';
+            splash.style.opacity = '1';
+            // Reload the iframe by resetting its src
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            iframe.src = currentSrc;
+        }
 
         // Register Service Worker
         if ('serviceWorker' in navigator) {
@@ -133,7 +157,6 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // You could show an "Install" button here
         });
     </script>
 </body>

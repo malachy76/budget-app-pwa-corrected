@@ -50,6 +50,21 @@
             font-size: 1rem;
             opacity: 0.9;
         }
+        #error-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8d7da;
+            color: #721c24;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            z-index: 2000;
+        }
     </style>
 </head>
 <body>
@@ -57,6 +72,13 @@
         <div class="splash-content">
             <h1>💰 Budget App</h1>
             <p>Loading your finances...</p>
+        </div>
+    </div>
+    <div id="error-message">
+        <div>
+            <h2>⚠️ Failed to load the app</h2>
+            <p>The budget app is temporarily unavailable. Please try again later.</p>
+            <button onclick="location.reload()">Retry</button>
         </div>
     </div>
     <iframe 
@@ -68,15 +90,34 @@
     </iframe>
 
     <script>
-        // Hide splash screen when iframe loads
-        document.getElementById('app-frame').addEventListener('load', function() {
+        const iframe = document.getElementById('app-frame');
+        const splash = document.getElementById('splash-screen');
+        const errorDiv = document.getElementById('error-message');
+
+        // Hide splash when iframe loads
+        iframe.addEventListener('load', function() {
             setTimeout(() => {
-                document.getElementById('splash-screen').style.opacity = '0';
+                splash.style.opacity = '0';
                 setTimeout(() => {
-                    document.getElementById('splash-screen').style.display = 'none';
+                    splash.style.display = 'none';
                 }, 500);
             }, 1000);
         });
+
+        // Show error if iframe fails to load (e.g., redirect loop, network error)
+        iframe.addEventListener('error', function() {
+            splash.style.display = 'none';
+            errorDiv.style.display = 'flex';
+        });
+
+        // Also set a timeout in case load never fires (due to loop)
+        setTimeout(() => {
+            if (splash.style.display !== 'none') {
+                // If splash still visible after 10 seconds, assume iframe failed
+                splash.style.display = 'none';
+                errorDiv.style.display = 'flex';
+            }
+        }, 10000);
 
         // Register Service Worker
         if ('serviceWorker' in navigator) {
